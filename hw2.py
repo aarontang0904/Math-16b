@@ -1,7 +1,4 @@
 from math import sqrt
-import numpy as np
-
-vectors = np.random.rand(100000,10).tolist()
 
 def is_in_first_quadrant(vector: list) -> bool:
   '''
@@ -25,9 +22,6 @@ def is_in_first_quadrant(vector: list) -> bool:
   # Written in one line
   return all(n >= 0 for n in vector)
 
-# print(is_in_first_quadrant([1, 2]))
-# print(is_in_first_quadrant([1, -2]))
-
 def dot(v1: list, v2: list) -> float:
   '''
   Parameters
@@ -49,8 +43,6 @@ def dot(v1: list, v2: list) -> float:
   # Written in one line
   # return sum(v1[i]*v2[i] for i in range(len(v1)))
   return sum([i * j for i,j in zip(v1,v2)]) if len(v1) == len(v2) else None
-
-# print(dot(v1=[1,2,3], v2=[1,2,3]))
 
 def norm(v: list) -> float:
   '''
@@ -86,17 +78,15 @@ def largest_norm(vectors: list[list]) -> list:
   of all the vectors in 'vectors'. In case of a tie, returns 
   the first vector in the list.
   '''
-  largest_norm = norm(vectors[0])
-  largest_v = list[0]
-  for vector in vectors[1:]:
-    if norm(vector) > largest_norm:
-      largest_norm = norm(vector)
-      largest_v = vector
-  return largest_v
+  # largest_norm = norm(vectors[0])
+  # largest_v = list[0]
+  # for vector in vectors[1:]:
+  #   if norm(vector) > largest_norm:
+  #     largest_norm = norm(vector)
+  #     largest_v = vector
+  # return largest_v
 
   # Written in one line
-  # return max(vectors, key=norm)
+  return max(vectors, key=norm)
   # return max(vectors,key=lambda v:sqrt(sum(n**2 for n in v)))
-
-print(largest_norm(vectors))
   
