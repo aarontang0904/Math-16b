@@ -62,7 +62,7 @@ def norm(v: list) -> float:
   # return sqrt(sum)
 
   # Written in one line
-  return sqrt(sum([n**2 for n in v]))
+  return sqrt(sum([n**2 for n in v])) if len(v) != 0 else None
 
 def largest_norm(vectors: list[list]) -> list:
   '''
@@ -87,6 +87,5 @@ def largest_norm(vectors: list[list]) -> list:
   # return largest_v
 
   # Written in one line
-  return max(vectors, key=norm)
-  # return max(vectors,key=lambda v:sqrt(sum(n**2 for n in v)))
+  return max(vectors, key=norm) if len(vectors) != 0 else None
   
