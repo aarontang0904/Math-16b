@@ -133,7 +133,7 @@ def orthogonal_projection(v, w):
     a = v*w/||w||^2
   '''
   alpha = dot(v, w)/(norm(w)**2)
-  x = [alpha * i for i in w]
+  x = [round(alpha * i, 1) for i in w]
   y = [i - j for i, j in zip(v,x)]
   return x, y
 
