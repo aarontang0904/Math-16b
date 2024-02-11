@@ -56,7 +56,7 @@ def transpose(M: list[list]) -> list[list]:
   return [[M[j][i] for j in range(len(M))] for i in range(len(M[0]))]
 
 
-def complex_mulitply(z1: tuple, z2: tuple) -> tuple:
+def complex_multiply(z1: tuple, z2: tuple) -> tuple:
   '''
   Parameters
   ----------
