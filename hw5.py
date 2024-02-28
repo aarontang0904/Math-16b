@@ -93,6 +93,10 @@ def matrix_to_dict(M: np.array) -> dict:
     '''
     matrix_dict = {}
     for row_index, row in enumerate(M):
+        tmp = []
         # List of tuples (state number, transition probability)
-        matrix_dict[row_index] = [(col_index, prob) for col_index, prob in enumerate(row) if prob > 0]
+        for col_index, prob in enumerate(row):
+            if prob > 0:
+                tmp.append((col_index, prob))
+        matrix_dict[row_index] = tmp
     return matrix_dict
