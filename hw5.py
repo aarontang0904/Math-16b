@@ -50,8 +50,8 @@ def stationary_states(P):
     for i, eigenvalue in enumerate(eigenvalues):
         if np.isclose(eigenvalue, 1):
             # Normalize the eigenvector to have a sum of 1
-            vec = left_eigenvectors[:, i] / np.sum(left_eigenvectors[:, i])
-            stationary.append(vec.real)
+            vec = left_eigenvectors[:, i].real / np.sum(left_eigenvectors[:, i].real)
+            stationary.append(vec)
     
     return stationary
 
