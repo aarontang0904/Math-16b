@@ -48,8 +48,8 @@ def stationary_states(P: np.ndarray) -> list:
     for i, eigenval in enumerate(eigenvals):
         if np.isclose(eigenval, 1):
             # Normalize the eigenvector to have a sum of 1
-            vec = left_eigenvecs[:, i].real
-            stationary.append(vec/np.sum(vec)) if np.all(vec >= 0) and np.isclose(np.sum(vec), 1) else None
+            vec = left_eigenvecs[:, i].real / np.sum(left_eigenvecs[:, i].real)
+            stationary.append(vec)
     return stationary
 
 def probability_of_return(n: int) -> float:
