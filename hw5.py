@@ -76,7 +76,7 @@ def probability_of_return(n: int) -> float:
     # The probability of return is the probability of the ant being at the starting vertex
     return probability_distribution[0]
 
-def matrix_to_dict(M: np.array) -> dict:
+def matrix_to_dict(M) -> dict:
     '''
     Parameters
     ----------
