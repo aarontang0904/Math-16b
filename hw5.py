@@ -92,9 +92,10 @@ def matrix_to_dict(M: np.array) -> dict:
     (state number, transition probability).
     '''
     matrix_dict = {}
+    num_states = len(M[0])
     for row_index, row in enumerate(M):
-        # List of tuples (state number, transition probability)
-        matrix_dict[row_index] = [(col_index, prob) for col_index, prob in enumerate(row) if prob > 0]
+        # Adjust state numbers based on the expectation
+        matrix_dict[row_index] = [(col_index % num_states, prob) for col_index, prob in enumerate(row) if prob > 0]
     return matrix_dict
 
 print(matrix_to_dict([[1, 0, 0], [0, 1, 0], [0, 0, 1]]))
