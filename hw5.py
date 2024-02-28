@@ -27,26 +27,32 @@ def is_stochastic(M: np.array) -> bool:
     # If all checks pass, the matrix is left stochastic
     return True
 
-def stationary_states(P: np.array) -> list:
-    '''
+def stationary_states(P):
+    """
+    Find the stationary states of a stochastic matrix P.
+    A stationary state is a row vector v such that vP = v.
+    
     Parameters
     ----------
-    - P: numpy array
+    P : np.array
+        Stochastic matrix representing the transition probabilities of a Markov chain.
     
     Returns
     -------
     list
-    '''
-    # Find the stationary states of the matrix
-    # Initialize the list of stationary states
+        A list containing the stationary states.
+    """
+    # Find the eigenvalues and left eigenvectors of P
+    eigenvalues, left_eigenvectors = np.linalg.eig(P.T)
+    
+    # Find the eigenvector corresponding to eigenvalue 1 (within a tolerance)
     stationary = []
-    # Iterate through each row of the matrix
-    for row in range(P.shape[0]):
-        # If the row is equal to the dot product of the row and the identity matrix
-        if np.allclose(P[row], np.dot(P, P[row])):
-            # Add the row to the list of stationary states
-            stationary.append(P[row])
-    # Return the list of stationary states
+    for i, eigenvalue in enumerate(eigenvalues):
+        if np.isclose(eigenvalue, 1):
+            # Normalize the eigenvector to have a sum of 1
+            vec = left_eigenvectors[:, i] / np.sum(left_eigenvectors[:, i])
+            stationary.append(vec.real)
+    
     return stationary
 
 def probability_of_return(n: int) -> float:
