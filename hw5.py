@@ -97,3 +97,5 @@ def matrix_to_dict(M: np.array) -> dict:
         matrix_dict[row_index] = [(col_index, prob) for col_index, prob in enumerate(row) if prob > 0]
     return matrix_dict
 
+print(matrix_to_dict([[1, 0, 0], [0, 1, 0], [0, 0, 1]]))
+print(matrix_to_dict([[0,0.5], [1, 0.5]]))
