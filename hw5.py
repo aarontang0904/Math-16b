@@ -75,6 +75,6 @@ def matrix_to_dict(M):
     dict
         A dictionary with keys as row indices and values as lists representing each row.
     '''
-    matrix_dict = {row_index: row.tolist() for row_index, row in enumerate(M)}
+    matrix_dict = {row_index: row for row_index, row in enumerate(M)}
     return matrix_dict
 
