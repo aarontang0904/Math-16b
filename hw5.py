@@ -63,18 +63,24 @@ def probability_of_return(n: int) -> float:
 
 def matrix_to_dict(M):
     '''
-    Convert a NumPy matrix M to a dictionary with row indices as keys and rows as lists.
-
+    Convert a stochastic matrix M representing a Markov chain into a dictionary representation.
+    The keys of the dictionary are the state numbers, and the values are lists of tuples
+    (state number, transition probability).
+    
     Parameters
     ----------
     M : numpy.ndarray
-        A NumPy array representing the matrix.
-
+        A NumPy array representing the stochastic matrix of the Markov chain.
+    
     Returns
     -------
     dict
-        A dictionary with keys as row indices and values as lists representing each row.
+        A dictionary with keys as state numbers and values as lists of tuples representing
+        the transition probabilities to other states.
     '''
-    matrix_dict = {row_index: row for row_index, row in enumerate(M)}
+    matrix_dict = {}
+    for row_index, row in enumerate(M):
+        # List of tuples (state number, transition probability)
+        matrix_dict[row_index] = [(col_index, prob) for col_index, prob in enumerate(row) if prob > 0]
     return matrix_dict
 
