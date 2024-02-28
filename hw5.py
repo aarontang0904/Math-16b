@@ -29,18 +29,16 @@ def is_stochastic(M: np.array) -> bool:
 
 def stationary_states(P):
     """
-    Find the stationary states of a stochastic matrix P.
-    A stationary state is a row vector v such that vP = v.
-    
     Parameters
     ----------
     P : np.array
-        Stochastic matrix representing the transition probabilities of a Markov chain.
     
     Returns
     -------
     list
-        A list containing the stationary states.
+
+    Find the stationary states of a stochastic matrix P.
+    A stationary state is a row vector v such that vP = v.
     """
     # Find the eigenvalues and left eigenvectors of P
     eigenvalues, left_eigenvectors = np.linalg.eig(P.T)
@@ -56,6 +54,18 @@ def stationary_states(P):
     return stationary
 
 def probability_of_return(n: int) -> float:
+    '''
+    Parameters
+    ----------
+    n : int
+
+    Returns
+    -------
+    float
+
+    Calculate the probability that a random walk on a graph returns to the starting vertex after n steps.
+    The graph is represented by a transition matrix where the entry (i, j) is the probability of moving from vertex i to vertex j.
+    '''
     transition_matrix = np.full((4, 4), 1/3)
     np.fill_diagonal(transition_matrix, 0)
     probability_distribution = np.array([1, 0, 0, 0])
@@ -67,29 +77,23 @@ def probability_of_return(n: int) -> float:
     # The probability of return is the probability of the ant being at the starting vertex
     return probability_distribution[0]
 
-def matrix_to_dict(M):
+def matrix_to_dict(M: np.array) -> dict:
     '''
-    Convert a stochastic matrix M representing a Markov chain into a dictionary representation.
-    The keys of the dictionary are the state numbers, and the values are lists of tuples
-    (state number, transition probability).
-    
     Parameters
     ----------
     M : numpy.ndarray
-        A NumPy array representing the stochastic matrix of the Markov chain.
     
     Returns
     -------
     dict
-        A dictionary with keys as state numbers and values as lists of tuples representing
-        the transition probabilities to other states.
+
+    Convert a stochastic matrix M representing a Markov chain into a dictionary representation.
+    The keys of the dictionary are the state numbers, and the values are lists of tuples
+    (state number, transition probability).
     '''
     matrix_dict = {}
     for row_index, row in enumerate(M):
-        state_list = []
-        for j, p in enumerate(row):
-            if p > 0:
-                state_list.append((j, p))
-        matrix_dict[row_index] = state_list
+        # List of tuples (state number, transition probability)
+        matrix_dict[row_index] = [(col_index, prob) for col_index, prob in enumerate(row) if prob > 0]
     return matrix_dict
 
