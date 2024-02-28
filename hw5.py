@@ -61,22 +61,23 @@ def probability_of_return(n: int) -> float:
     # The probability of return is the probability of the ant being at the starting vertex
     return probability_distribution[0]
 
-def matrix_to_dict(M: np.array) -> dict:
+def matrix_to_dict(M: list[list]) -> dict:
     '''
     Parameters
     ----------
-    - M: numpy array
+    - M: list of lists
     
     Returns
     -------
     dict
+        A dictionary with keys as row indices and values as lists representing each row.
     '''
-    # Convert the matrix to a dictionary
+    # Convert the matrix (list of lists) to a dictionary
     # Initialize the dictionary
     matrix_dict = {}
     # Iterate through each row of the matrix
-    for row in range(M.shape[0]):
-        # Add the row to the dictionary
-        matrix_dict[row] = M[row]
+    for row_index, row in enumerate(M):
+        # Add the row to the dictionary, converting it to a list if it's not already
+        matrix_dict[row_index] = list(row)
     # Return the dictionary
     return matrix_dict
