@@ -27,7 +27,7 @@ def is_stochastic(M: np.array) -> bool:
     # If all checks pass, the matrix is left stochastic
     return True
 
-def stationary_states(P):
+def stationary_states(P: np.ndarray) -> list:
     """
     Parameters
     ----------
@@ -41,16 +41,15 @@ def stationary_states(P):
     A stationary state is a row vector v such that vP = v.
     """
     # Find the eigenvalues and left eigenvectors of P
-    eigenvalues, left_eigenvectors = np.linalg.eig(P.T)
+    eigenvals, left_eigenvecs = np.linalg.eig(P.T)
     
     # Find the eigenvector corresponding to eigenvalue 1 (within a tolerance)
     stationary = []
-    for i, eigenvalue in enumerate(eigenvalues):
-        if np.isclose(eigenvalue, 1):
+    for i, eigenval in enumerate(eigenvals):
+        if np.isclose(eigenval, 1):
             # Normalize the eigenvector to have a sum of 1
-            vec = left_eigenvectors[:, i].real / np.sum(left_eigenvectors[:, i].real)
-            stationary.append(vec)
-    
+            vec = left_eigenvecs[:, i].real
+            stationary.append(vec/np.sum(vec)) if np.all(vec >= 0) and np.isclose(np.sum(vec), 1) else None
     return stationary
 
 def probability_of_return(n: int) -> float:
