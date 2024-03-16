@@ -145,6 +145,9 @@ def min_weight(file_path):
     # Filter rows where the weight matches the min weight within the group
     result_df = merged_df[merged_df['weight'] == merged_df['weight_min']]
 
+    # Drop duplicates
+    result_df = result_df.drop_duplicates(subset=['year', 'name'])
+    
     # Sort by 'year' ascending
     result_df.set_index('year', inplace=True)
 
