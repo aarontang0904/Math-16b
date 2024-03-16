@@ -149,6 +149,7 @@ def min_weight(file_path):
     result_df = result_df.drop_duplicates(subset=['year'])
 
     # Sort by 'year' ascending
-    # result_df.set_index('year', inplace=True)
+    result_df.set_index('year', inplace=True)
+    result_df.index.name = None
 
     return result_df[['name', 'origin']]
