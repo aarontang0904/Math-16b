@@ -64,7 +64,7 @@ def get_total_volume(file_path, y):
     ------------
     file_path: str
         The path to the csv file containing the stock data.
-    y: str
+    y: int
         The year for which the stock volume is to be calculated.
     
     Returns:
@@ -81,7 +81,7 @@ def get_total_volume(file_path, y):
     df['Date'] = [str(x) for x in df['Date']]
 
     # Select the rows where the Date column contains the selected year, then sum the Volume column
-    return df[df['Date'].str.contains(y)]['Volume'].sum()
+    return df[df['Date'].str.contains(str(y))]['Volume'].sum()
 
 # Question 4
 def get_max_price(file_path):
@@ -101,28 +101,19 @@ def get_max_price(file_path):
     # Read the CSV file
     df = pd.read_csv(file_path)
 
-    # Handle Nan values
+    # Handle Nan Values
     df = df.dropna(subset=['price'])
 
-    # Group by 'country' and find the max price for each group
-    max_prices = df.groupby('country')['price'].max()
+    # Group by 'country' and find the index of the max price(first occurence) for each group
+    idx = df.groupby('country')['price'].idxmax()
 
-    # Merge the max prices with the original dataframe to get all rows that match the max price
-    result_df = df.merge(max_prices, on='country', suffixes=('', '_max'))
+    # Select the rows with the indices corresponding to max price
+    result_df = df.loc[idx, ['country', 'winery']].drop_duplicates()
 
-    # Filter rows where the price matches the max price within the group
-    result_df = result_df[result_df['price'] == result_df['price_max']]
-
-    # Sort by 'country' alphabetically
-    result_df.sort_values('country', inplace=True)
-
-    # In case of multiple wineries with the same max price, drop duplicates within each country
-    result_df.drop_duplicates(subset=['country', 'winery'], inplace=True)
-
-    # Set the 'country' as the index
+    # Set the index to 'country'
     result_df.set_index('country', inplace=True)
 
-    return result_df[['winery']]
+    return result_df
 
 # Question 5
 def min_weight(file_path):
